@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild} from '@angular/core';
+import { Component} from '@angular/core';
 import { MatList } from '@angular/material/list';
 import { Router } from '@angular/router';
 
@@ -7,7 +7,7 @@ import { Router } from '@angular/router';
   templateUrl: './sidebar.component.html',
   styleUrls: ['./sidebar.component.scss']
 })
-export class SidebarComponent implements OnInit {
+export class SidebarComponent {
   //Defining an array of pages to represent in the sidebar
   public pages: IPage[] = [
     {
@@ -21,10 +21,6 @@ export class SidebarComponent implements OnInit {
   ];
 
   constructor(private router: Router) { }
-
-  ngOnInit(): void {
-  }
-
   navigate(route: string){
     this.router.navigate([route])
   }
