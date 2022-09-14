@@ -1,0 +1,12 @@
+<div style="height: 600px">
+<ag-grid-angular
+    *ngIf="gridReady"
+    style="width: 100%; height: 100%;"
+    class="ag-theme-alpine"
+    [columnDefs]="gridConfig.columnDefs"
+    [defaultColDef]="defaultColDef"
+    [defaultColGroupDef]="defaultColGroupDef"
+    [rowData]="gridConfig.rowData"
+    (gridReady)="onGridReady($event)"
+></ag-grid-angular>
+</div>

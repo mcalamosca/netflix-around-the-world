@@ -20,6 +20,15 @@ Extra Points
 
 Preferably you can use managed services (App Engine, Cloud Run, CloudSQL, etc.) 
 
+In order to run the local json-server you must install it globally "npm i json-server -g" and then run it using "json-server db.json" from the root directory
+This will start a node server on localhost:3000 which Angular is configured to hit via proxy.conf.json
+
+
+
+
+
+
+
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 14.2.2.
 
 ## Development server

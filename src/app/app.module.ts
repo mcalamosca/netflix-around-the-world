@@ -6,22 +6,24 @@ import { AppComponent } from './app.component';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome'
 import { MatToolbarModule } from '@angular/material/toolbar';
-import { SidebarComponent } from './sidebar/sidebar.component';
-import { MatListModule } from '@angular/material/list';
+import { DashboardsModule } from './dashboards/dashboards.module';
+import { HttpClientModule } from '@angular/common/http';
+import { ComponentsModule } from './components/components.module';
 
 @NgModule({
   declarations: [
-    AppComponent,
-    SidebarComponent
+    AppComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
+    HttpClientModule,
+    DashboardsModule,
     BrowserAnimationsModule,
     MatSidenavModule,
     MatToolbarModule,
-    MatListModule,
-    FontAwesomeModule
+    FontAwesomeModule,
+    ComponentsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

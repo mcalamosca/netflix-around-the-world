@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
-import { faBars, faHouse } from '@fortawesome/free-solid-svg-icons';
+import { faGithub } from '@fortawesome/free-brands-svg-icons';
+import { faBars } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-root',
@@ -10,15 +10,9 @@ import { faBars, faHouse } from '@fortawesome/free-solid-svg-icons';
 export class AppComponent {
   title = 'torqata-poc';
   bars = faBars;
-  homeIcon = faHouse;
+  github = faGithub;
 
-  goHome(){
-    this.router.navigate(['home'])
-  }
-
-  constructor(private router: Router) { }
-
-  log(drawer: any){
-    console.log(drawer)
+  gotoGithub(){
+    window.open("https://github.com/mcalamosca/torqata-poc","_blank")
   }
 }
