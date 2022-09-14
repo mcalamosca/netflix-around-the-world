@@ -12,11 +12,11 @@ export class SidebarComponent {
   public pages: IPage[] = [
     {
       title: "TV Shows",
-      route: "/tvshows"
+      route: "dashboard/tvshows"
     },
     {
       title: "Movies",
-      route: "/movies"
+      route: "dashboard/movies"
     }
   ];
 

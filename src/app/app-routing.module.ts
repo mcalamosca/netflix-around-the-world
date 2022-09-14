@@ -1,12 +1,10 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { MoviesDashboardComponent } from './dashboards/movies-dashboard/movies-dashboard.component';
-import { TvShowsDashboardComponent } from './dashboards/tv-shows-dashboard/tv-shows-dashboard.component';
+import { MediaDashboardComponent } from './dashboards/media-dashboard/media-dashboard.component';
 
 const routes: Routes = [
-  {path: 'tvshows', component: TvShowsDashboardComponent},
-  {path: 'movies', component: MoviesDashboardComponent},
-  {path: '**', redirectTo: 'tvshows', pathMatch: 'full'}
+  {path: 'dashboard/:type', component: MediaDashboardComponent},
+  {path: '**', redirectTo: 'dashboard/tvshows', pathMatch: 'full'}
 ];
 
 @NgModule({

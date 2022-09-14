@@ -7,8 +7,8 @@ const apiUrl = "media/netflix"
 })
 export class MediaDataService {
   //Creating an observable for downstream consumption, we don't expect to push to the stream from those consumers
-  tvShowDataSubject = new Subject();
-  tvShowData$ = this.tvShowDataSubject.asObservable();
+  mediaDataSubject = new Subject();
+  mediaData$ = this.mediaDataSubject.asObservable();
 
   movieDataSubject = new Subject();
   movieData$ = this.movieDataSubject.asObservable();
@@ -18,22 +18,11 @@ export class MediaDataService {
 
   constructor(private http:HttpClient) {}
 
-  getTvShows(){
+  getMediaByType(type:string){
     this.http.get<any[]>(apiUrl).subscribe(next =>{
-      this.tvShowDataSubject.next(next.filter(r => {return r.type === 'TV Show'}));
+      this.mediaDataSubject.next(next.filter(r => {return r.type === type}));
     })
   }
 
-  getMovies(){
-    this.http.get<any[]>(apiUrl).subscribe(next =>{
-      this.movieDataSubject.next(next.filter(r => {return r.type === 'Movie'}));
-    })
-  }
-
-  getAll(){
-    this.http.get<any[]>(apiUrl).subscribe(next =>{
-      this.allDataSubject.next(next);
-    })
-  }
 }
 

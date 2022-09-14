@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
 import * as Highcharts from 'highcharts/highmaps';
 import worldMap from '@highcharts/map-collection/custom/world.geo.json';
+import { MediaDashboardComponent } from '../dashboards/media-dashboard/media-dashboard.component';
 
 @Injectable({
   providedIn: 'root',
 })
 export class HighchartsDataService {
-  parseMapData(apiData: any): Highcharts.Options {
+  parseMapData(apiData: any, parent: MediaDashboardComponent): Highcharts.Options {
     let countryCountMap: any = {};
     let data = apiData;
     for (let i = 0; i < data.length; i++) {
@@ -26,6 +27,9 @@ export class HighchartsDataService {
         final.push([country, countryCountMap[country]]);
     });
     return {
+      accessibility: {
+        enabled: false
+      },
       chart: {
         map: worldMap,
         events: {
@@ -56,7 +60,8 @@ export class HighchartsDataService {
       series: [
         {
           type: 'map',
-          name: 'Number of Movies',
+          name: 'Number of ' + parent.type,
+          allowPointSelect: true,
           states: {
             hover: {
               color: '#BADA55',
@@ -68,6 +73,16 @@ export class HighchartsDataService {
           },
           allAreas: false,
           data: final,
+          point: {
+            events: {
+              select: (e) =>{
+                parent.applyCountryFilter(e)
+              },
+              unselect: (e) =>{
+                parent.removeCountryFilter()
+              }
+            }
+          }
         },
       ],
     };
@@ -310,6 +325,7 @@ var countryCodeMap: any = {
   'United Arab Emirates': 'ae',
   'United Kingdom': 'gb',
   'United States': 'us',
+  'United States of America': 'us',
   'United States Outlying Islands': 'um',
   Uruguay: 'uy',
   Uzbekistan: 'uz',

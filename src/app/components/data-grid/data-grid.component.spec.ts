@@ -22,11 +22,11 @@ describe('DataGridComponent', () => {
   });
 
   it('grid API is not available until  `detectChanges`', () => {
-    expect(component.gridAPI).not.toBeTruthy();
+    expect(component.gridApi).not.toBeTruthy();
   });
-  
+
   it('grid API is available after `detectChanges`', () => {
     fixture.detectChanges();
-    expect(component.gridAPI).toBeTruthy();
+    expect(component.gridApi).toBeTruthy();
   });
 });
