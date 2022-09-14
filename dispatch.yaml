@@ -1,0 +1,3 @@
+dispatch:
+  - url: "netflix-around-the-globe.uk.r.appspot.com/media/*"
+    service: api

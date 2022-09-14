@@ -1,0 +1,30 @@
+service: default
+runtime: python27
+api_version: 1
+threadsafe: true
+
+handlers:
+  - url: /
+    static_files: dist/torqata-poc/index.html
+    upload: dist/torqata-poc/index.html
+  - url: /
+    static_dir: dist/torqata-poc
+  - url: /.*
+    secure: always
+    redirect_http_response_code: 301
+    static_files: dist/torqata-poc/index.html
+    upload: dist/torqata-poc/index.html
+    http_headers:
+      Strict-Transport-Security: max-age=31536000; includeSubDomains
+      X-Frame-Options: DENY
+
+skip_files:
+  - e2e/
+  - node_modules/
+  - src/
+  - coverage
+  - ^(.*/)?\..*$
+  - ^(.*/)?.*\.json$
+  - ^(.*/)?.*\.md$
+  - ^(.*/)?.*\.yaml$
+  - ^LICENSE

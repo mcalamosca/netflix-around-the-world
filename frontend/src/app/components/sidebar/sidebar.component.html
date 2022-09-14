@@ -1,0 +1,5 @@
+<mat-nav-list>
+    <mat-list-item *ngFor="let page of pages">
+        <span (click)="navigate(page.route)">{{page.title}}</span>
+    </mat-list-item>
+</mat-nav-list>
