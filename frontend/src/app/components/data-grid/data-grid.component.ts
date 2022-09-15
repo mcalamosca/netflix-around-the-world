@@ -25,12 +25,11 @@ export class DataGridComponent implements OnInit, OnDestroy {
   //we should always implement provided Types from third party libraries, in this case ColDef,ColGroupDef,GridReadyEvent...etc from Ag-grid
   public defaultColDef: ColDef = {
     width: 150,
-    editable: true,
+    editable: false,
     filter: 'agTextColumnFilter',
     floatingFilter: true,
     resizable: true,
-    sortable: true,
-    maxWidth: 250,
+    sortable: true
   };
 
   public defaultColGroupDef: Partial<ColGroupDef> = {
