@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import {
   ColDef,
   ColGroupDef,
@@ -6,17 +6,18 @@ import {
   GridApi,
   ColumnApi,
 } from 'ag-grid-community';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-data-grid',
   templateUrl: './data-grid.component.html',
   styleUrls: ['./data-grid.component.scss'],
 })
-export class DataGridComponent implements OnInit {
+export class DataGridComponent implements OnInit, OnDestroy {
   //definite assignment assertion for this, as it will always be provided to the component even though it isn't initialized in this file
   @Input() gridConfig!: IGridConfig;
-  @Input() filterChanged!: Observable<string>;
+  @Input() filterChanged!: Observable<IFilterParam>;
+  filterChangedSubscription: Subscription = new Subscription();
   gridReady: boolean = false;
   gridApi!: GridApi;
   columnApi!: ColumnApi;
@@ -41,14 +42,19 @@ export class DataGridComponent implements OnInit {
   ngOnInit(): void {
     this.gridConfig.columnDefs = this.buildColumnDefs(this.gridConfig.rowData);
     this.gridReady = true;
-    this.filterChanged.subscribe((countryFilter: string) => {
-      let filterComponent = this.gridApi.getFilterInstance('country');
+    this.filterChangedSubscription = this.filterChanged.subscribe((filter: IFilterParam) => {
+      let filterComponent = this.gridApi.getFilterInstance(filter.field);
       filterComponent?.setModel({
         type: 'contains',
-        filter: countryFilter === "remove" ? "" : countryFilter,
+        filter: filter.value === "remove" ? "" : filter.value,
       });
       this.gridApi.onFilterChanged();
     });
+  }
+
+  ngOnDestroy(){
+    this.gridApi.destroy()
+    this.filterChangedSubscription.unsubscribe();
   }
 
   //this function takes the data and using the first row, generates the columnDefs required by the grid
@@ -86,4 +92,13 @@ export class DataGridComponent implements OnInit {
 export interface IGridConfig {
   rowData: any[];
   columnDefs?: (ColDef | ColGroupDef)[];
+}
+
+export interface IFilterParam {
+  field: string,
+  value?: string
+}
+
+export interface IFilterParamMap {
+  [key: string]: string
 }

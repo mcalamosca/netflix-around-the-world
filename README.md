@@ -1,4 +1,32 @@
-# TorqataPoc
+This application is built from scratch using only Angular Material components for the layout, Highcharts for the visualizations, and Ag-Grid for the data grid. There are 2 modes accessible from the sidebar menu, TV Shows and Movies. If you select a country or a rating from the charts, it will filter the data grid below according to your selection. If I had more time I would've tied together the charts to make them reflect each other's selections as well. The app is responsive and will follow the Material grid layout according to screen size.
+
+You'll see Google Cloud App Engine configurations (app.yaml) in both the frontend and flaskapi services, and a dispatch.yaml in the project root. I managed to get both deployed as services under 1 project, but was having trouble exposing the Flask endpoint under the same context as the frontend. I tried using dispatch.yaml to achieve this but it wasn't forwarding so I decided to leave it as is. Having never used Google Cloud I was satisfied in getting this far at least. 
+
+frontend with no data: `https://netflix-around-the-globe.uk.r.appspot.com/`
+api endpoint for the data: `https://api-dot-netflix-around-the-globe.uk.r.appspot.com/netflix`
+
+It was interesting working with Geolocation data and the Highmaps library, I needed to map real country names from the Netflix data set to 2 digit codes (ISO 3166-1 alpha-2) to work with the library's map. Interestingly enough Netflix has such a variety of media on their site that it paints almost the entire global map, and you might miss the gaps at first. It's always satisfying getting that first render after the data is plugged in and going from a blank canvas to a fully detailed map after hitting save.
+
+## Development server
+
+Run `"py flaskapi/main.py` for the Flask Python API.
+
+Run `ng serve` in /frontend for a dev frontend. Navigate to `http://localhost:4200/`.
+
+## Build
+
+Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+
+## Lint
+
+Run `ng lint` to lint the project. The build artifacts will be stored in the `dist/` directory.
+
+
+
+
+
+
+## Original Requirements:
 Data 
 1.	Pick a Data Source of your choice 
 2.	Optional: Netflix shows: https://www.kaggle.com/shivamb/netflix-shows/data 
@@ -17,40 +45,7 @@ Extra Points
 3.	 E.g. CircleCI, Travis, GCP Cloud Build, Github Actions, etc. 
 1.	Authentication implemented so that only authenticated users are capable of accessing the dashboard. 
 2.	Deploy the application in Google Cloud (Use free tier with new account setup) 
-
 Preferably you can use managed services (App Engine, Cloud Run, CloudSQL, etc.) 
-
-In order to run the local json-server you must install it globally "npm i json-server -g" and then run it using "json-server db.json" from the root directory
-This will start a node server on localhost:3000 which Angular is configured to hit via proxy.conf.json
-
-
-
-
-
 
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 14.2.2.
-
-## Development server
-
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
-
-## Code scaffolding
-
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
-
-## Build
-
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.

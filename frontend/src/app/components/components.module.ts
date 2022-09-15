@@ -6,6 +6,7 @@ import { DataGridComponent } from './data-grid/data-grid.component';
 import { AgGridModule } from 'ag-grid-angular';
 import { MapChartComponent } from './map-chart/map-chart.component';
 import { HighchartsChartModule } from 'highcharts-angular';
+import { PieChartComponent } from './pie-chart/pie-chart.component';
 
 
 
@@ -13,7 +14,8 @@ import { HighchartsChartModule } from 'highcharts-angular';
   declarations: [
     SidebarComponent,
     DataGridComponent,
-    MapChartComponent
+    MapChartComponent,
+    PieChartComponent
   ],
   imports: [
     CommonModule,
@@ -24,7 +26,8 @@ import { HighchartsChartModule } from 'highcharts-angular';
   exports: [
     SidebarComponent,
     DataGridComponent,
-    MapChartComponent
+    MapChartComponent,
+    PieChartComponent
   ]
 })
 export class ComponentsModule { }

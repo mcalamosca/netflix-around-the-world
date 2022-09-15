@@ -2,12 +2,16 @@ import { Injectable } from '@angular/core';
 import * as Highcharts from 'highcharts/highmaps';
 import worldMap from '@highcharts/map-collection/custom/world.geo.json';
 import { MediaDashboardComponent } from '../dashboards/media-dashboard/media-dashboard.component';
+import { keyframes } from '@angular/animations';
 
 @Injectable({
   providedIn: 'root',
 })
-export class HighchartsDataService {
-  parseMapData(apiData: any, parent: MediaDashboardComponent): Highcharts.Options {
+export class HighchartsConfigService {
+  parseMapData(
+    apiData: any,
+    parent: MediaDashboardComponent
+  ): Highcharts.Options {
     let countryCountMap: any = {};
     let data = apiData;
     for (let i = 0; i < data.length; i++) {
@@ -28,7 +32,7 @@ export class HighchartsDataService {
     });
     return {
       accessibility: {
-        enabled: false
+        enabled: false,
       },
       chart: {
         map: worldMap,
@@ -55,7 +59,7 @@ export class HighchartsDataService {
       },
       colorAxis: {
         min: 0,
-        max: 100
+        max: 100,
       },
       series: [
         {
@@ -75,18 +79,91 @@ export class HighchartsDataService {
           data: final,
           point: {
             events: {
-              select: (e) =>{
-                parent.applyCountryFilter(e)
+              select: (e) => {
+                parent.applyFilter(e,"country");
               },
-              unselect: (e) =>{
-                parent.removeCountryFilter()
-              }
-            }
-          }
+              unselect: (e) => {
+                parent.removeFilter("country");
+              },
+            },
+          },
         },
       ],
+      credits: {
+        enabled: false
+      },
     };
   }
+
+  parsePieData(
+    apiData: any,
+    parent: MediaDashboardComponent
+  ): Highcharts.Options {
+    let ratingMap: any = {};
+    let final: any = [];
+
+    for(let i=0;i<apiData.length;i++){
+      if(ratingMap[apiData[i]['rating']]){
+        ratingMap[apiData[i]['rating']]++;
+      } else {
+        ratingMap[apiData[i]['rating']] = 1;
+      }
+    }
+
+    Object.keys(ratingMap).forEach(rating =>{
+      final.push({
+        name: rating,
+        y: ratingMap[rating]
+      })
+    })
+
+    return {
+      chart: {
+        plotBackgroundColor: undefined,
+        plotBorderWidth: undefined,
+        plotShadow: false,
+        type: 'pie'
+    },
+    title: {
+        text: ''
+    },
+    tooltip: {
+        pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+    },
+    accessibility: {
+        enabled: false
+    },
+    plotOptions: {
+        pie: {
+            allowPointSelect: true,
+            cursor: 'pointer',
+            dataLabels: {
+                enabled: true
+            },
+            showInLegend: false
+        }
+    },
+    series: [{
+        name: 'Ratings',
+        type: 'pie',
+        colorByPoint: true,
+        data: final,
+        point: {
+          events: {
+            select: (e) => {
+              parent.applyFilter(e,"rating");
+            },
+            unselect: (e) => {
+              parent.removeFilter("rating");
+            },
+          },
+        },
+    }],
+    credits: {
+      enabled: false
+    }
+  }
+}
   constructor() {}
 }
 var countryCodeMap: any = {

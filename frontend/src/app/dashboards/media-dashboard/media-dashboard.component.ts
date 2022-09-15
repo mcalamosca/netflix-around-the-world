@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import { map } from 'rxjs/operators';
 import { Breakpoints, BreakpointObserver } from '@angular/cdk/layout';
 import { MediaDataService } from 'src/app/services/media-data.service';
-import { IGridConfig } from 'src/app/components/data-grid/data-grid.component';
+import { IFilterParam, IFilterParamMap, IGridConfig } from 'src/app/components/data-grid/data-grid.component';
 import { Subscription } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 import { MapChartComponent } from 'src/app/components/map-chart/map-chart.component';
@@ -24,7 +24,7 @@ export class MediaDashboardComponent implements OnInit, OnDestroy {
     rowData: []
   };
   //data for the map chart to use
-  mapChart: any = {
+  mediaData: any = {
     data: [],
     update: false
   }
@@ -32,8 +32,10 @@ export class MediaDashboardComponent implements OnInit, OnDestroy {
   subscription: Subscription = new Subscription;
   dataUpdated: Subject<any> = new Subject();
   dataUpdated$: Observable<any> = this.dataUpdated.asObservable();
-  countrySelected: Subject<any> = new Subject();
-  countrySelected$: Observable<any> = this.countrySelected.asObservable();
+  filterSelected: Subject<IFilterParam> = new Subject();
+  filterSelected$: Observable<IFilterParam> = this.filterSelected.asObservable();
+
+  currentFilters: IFilterParamMap = {};
   
   get self():MediaDashboardComponent {
     return this;
@@ -49,7 +51,14 @@ export class MediaDashboardComponent implements OnInit, OnDestroy {
             cols: 4,
             rows: 2,
             type: "map-chart",
-            chart: this.mapChart
+            chart: this.mediaData
+          },
+          {
+            title: ' Ratings',
+            cols: 4,
+            rows: 2,
+            type: "pie-chart",
+            chart: this.mediaData
           },
           {
             title: 'All ',
@@ -67,11 +76,18 @@ export class MediaDashboardComponent implements OnInit, OnDestroy {
           cols: 2,
           rows: 2,
           type: "map-chart",
-          chart: this.mapChart
+          chart: this.mediaData
+        },
+        {
+          title: ' Ratings',
+          cols: 2,
+          rows: 2,
+          type: "pie-chart",
+          chart: this.mediaData
         },
         {
           title: 'All ',
-          cols: 2,
+          cols: 4,
           rows: 2,
           type: "grid",
           gridConfig: this.gridConfig
@@ -87,7 +103,7 @@ export class MediaDashboardComponent implements OnInit, OnDestroy {
   ) {
     this.subscription = this.mediaDataService.mediaData$.subscribe(next => {
       this.gridConfig.rowData = next as any;
-      this.mapChart.data = next as any;
+      this.mediaData.data = next as any;
       this.dataUpdated.next(next);
       this.doneLoading = true;
     });
@@ -106,12 +122,20 @@ export class MediaDashboardComponent implements OnInit, OnDestroy {
     }
   }
 
-  applyCountryFilter(e:Highcharts.PointInteractionEventObject){
-    let country = (e.target as any).name;
-    this.countrySelected.next(country);
+  applyFilter(e:Highcharts.PointInteractionEventObject,field:string){
+    let name = (e.target as any).name;
+    this.currentFilters[field] = name;
+    this.filterSelected.next({
+      field: field,
+      value: name
+    })
   }
-  removeCountryFilter(){
-    this.countrySelected.next("remove");
+  removeFilter(field:string){
+    delete this.currentFilters[field];
+    this.filterSelected.next({
+      field: field,
+      value: "remove"
+    });
   }
 
   ngOnInit(): void {

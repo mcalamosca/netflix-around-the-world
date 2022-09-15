@@ -20,7 +20,6 @@ export class MediaDataService {
 
   getMediaByType(type:string){
     this.http.get<any[]>(apiUrl).subscribe(next =>{
-      console.log(next);
       this.mediaDataSubject.next(next.filter(r => {return r.type === type}));
     })
   }
