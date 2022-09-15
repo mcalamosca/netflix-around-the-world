@@ -1,14 +1,14 @@
 from distutils.log import error
-import os
+import os, sys
 import json
 
 from flask import Flask, jsonify, render_template
 
 app = Flask(__name__)
 
-@app.route("/static/media/netflix", methods=["GET"])
+@app.route("/api/media/netflix", methods=["GET"])
 def media():
-    jsonFile = json.loads(open("flaskapi\db.json", 'r', encoding='utf-8',errors='ignore').read())
+    jsonFile = json.loads(open(os.path.join(sys.path[0],"db.json"), 'r', encoding='utf-8',errors='ignore').read())
     return jsonify(jsonFile['netflix'])
 
 @app.route("/", methods=["GET"])

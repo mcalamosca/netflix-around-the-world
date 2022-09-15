@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
-const apiUrl = "media/netflix"
+const apiUrl = "/api/media/netflix"
 @Injectable({
   providedIn: 'root'
 })

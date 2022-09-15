@@ -1,16 +1,13 @@
 ## Netflix Around The World
 This application is built from scratch using only Angular Material components for the layout, Highcharts for the visualizations, and Ag-Grid for the data grid. There are 2 modes accessible from the sidebar menu, TV Shows and Movies. If you select a country or a rating from the charts, it will filter the data grid below according to your selection. If I had more time I would've tied together the charts to make them reflect each other's selections as well. The app is responsive and will follow the Material grid layout according to screen size.
 
-I managed to get this deployed as a GCP project, but was having trouble exposing the json data endpoint using handlers in app.yaml. It just keeps throwing 404 not found even though locally the same exact endpoint works. I'm sure with more time I could figure it out. Having never used Google Cloud I was satisfied in getting this far at least.
-
-frontend with no data: `https://netflix-around-the-globe.uk.r.appspot.com/`
-api endpoint for the data: `https://api-dot-netflix-around-the-globe.uk.r.appspot.com/netflix`
+I waws able to get this deployed as a GCP project here: `https://netflix-around-the-globe.uk.r.appspot.com/` 
 
 It was interesting working with Geolocation data and the Highmaps library, I needed to map real country names from the Netflix data set to 2 digit codes (ISO 3166-1 alpha-2) to work with the library's map. Interestingly enough Netflix has such a variety of media on their site that it paints almost the entire global map, and you might miss the gaps at first. It's always satisfying getting that first render after the data is plugged in and going from a blank canvas to a fully detailed map after hitting save.
 
 ## Development server
 
-Run `"py flaskapi/main.py` for the Flask Python API. The build files from the /frontend Angular project are hosted via Flask and served up at the following address.
+Run `py flaskapi/main.py` for the Flask Python API. The build files from the /frontend Angular project are hosted via Flask and served up at the following address.
 
 Navigate to `http://127.0.0.1:8080/`.
 
