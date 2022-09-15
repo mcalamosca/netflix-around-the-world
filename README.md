@@ -1,7 +1,7 @@
 ## Netflix Around The World
 This application is built from scratch using only Angular Material components for the layout, Highcharts for the visualizations, and Ag-Grid for the data grid. There are 2 modes accessible from the sidebar menu, TV Shows and Movies. If you select a country or a rating from the charts, it will filter the data grid below according to your selection. If I had more time I would've tied together the charts to make them reflect each other's selections as well. The app is responsive and will follow the Material grid layout according to screen size.
 
-You'll see Google Cloud App Engine configurations (app.yaml) in both the frontend and flaskapi services, and a dispatch.yaml in the project root. I managed to get both deployed as services under 1 project, but was having trouble exposing the Flask endpoint under the same context as the frontend. I tried using dispatch.yaml to achieve this but it wasn't forwarding so I decided to leave it as is. Having never used Google Cloud I was satisfied in getting this far at least. 
+I managed to get this deployed as a GCP project, but was having trouble exposing the json data endpoint using handlers in app.yaml. It just keeps throwing 404 not found even though locally the same exact endpoint works. I'm sure with more time I could figure it out. Having never used Google Cloud I was satisfied in getting this far at least.
 
 frontend with no data: `https://netflix-around-the-globe.uk.r.appspot.com/`
 api endpoint for the data: `https://api-dot-netflix-around-the-globe.uk.r.appspot.com/netflix`
@@ -10,9 +10,9 @@ It was interesting working with Geolocation data and the Highmaps library, I nee
 
 ## Development server
 
-Run `"py flaskapi/main.py` for the Flask Python API.
+Run `"py flaskapi/main.py` for the Flask Python API. The build files from the /frontend Angular project are hosted via Flask and served up at the following address.
 
-Run `ng serve` in /frontend for a dev frontend. Navigate to `http://localhost:4200/`.
+Navigate to `http://127.0.0.1:8080/`.
 
 ## Build
 

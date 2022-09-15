@@ -1,3 +1,0 @@
-dispatch:
-  - url: "*/media/*"
-    service: api
