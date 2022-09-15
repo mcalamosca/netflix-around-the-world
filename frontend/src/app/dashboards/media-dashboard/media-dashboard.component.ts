@@ -10,11 +10,11 @@ import { Subject } from 'rxjs';
 import { Observable } from 'rxjs';
 
 @Component({
-  selector: 'media-dashboard',
+  selector: 'app-media-dashboard',
   templateUrl: './media-dashboard.component.html',
   styleUrls: ['./media-dashboard.component.scss'],
 })
-export class MediaDashboardComponent implements OnInit, OnDestroy {
+export class MediaDashboardComponent implements OnDestroy {
   //Pivot titles on cards according to either TV Shows or Movies
   type: string = "tvshows";
   //wait for api calls to init components that use the data
@@ -136,10 +136,6 @@ export class MediaDashboardComponent implements OnInit, OnDestroy {
       field: field,
       value: "remove"
     });
-  }
-
-  ngOnInit(): void {
-    
   }
 
   ngOnDestroy(): void {

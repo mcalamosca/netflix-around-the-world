@@ -15,11 +15,11 @@ Navigate to `http://127.0.0.1:8080/`.
 
 ## Build
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. To update the Flask build you need to move all files to flaskapi/static except for index.html which will need move to flaskapi/templates.
 
 ## Lint
 
-Run `ng lint` to lint the project. The build artifacts will be stored in the `dist/` directory.
+Run `ng lint` to lint the project.
 
 
 ## Original Requirements:
