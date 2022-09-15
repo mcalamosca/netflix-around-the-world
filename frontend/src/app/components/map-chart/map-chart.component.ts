@@ -29,7 +29,6 @@ export class MapChartComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     //initialize the chart with data from this directive
-    console.log(this.chartData.data);
     this.chartOptions = this.highchartsDataService.parseMapData(
       this.chartData.data,
       this.parent

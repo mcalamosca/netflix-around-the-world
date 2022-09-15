@@ -5,6 +5,7 @@ import json
 from flask import Flask, jsonify, render_template
 
 app = Flask(__name__)
+app.config['JSON_SORT_KEYS'] = False
 
 @app.route("/api/media/netflix", methods=["GET"])
 def media():

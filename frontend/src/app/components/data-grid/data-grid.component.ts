@@ -85,7 +85,7 @@ export class DataGridComponent implements OnInit, OnDestroy {
     //good place to perform any autosizing of columns and other view manipulation
     this.gridApi = params.api;
     this.columnApi = params.columnApi;
-    params.columnApi.autoSizeAllColumns();
+    this.gridApi.sizeColumnsToFit();
   }
 }
 
