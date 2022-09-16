@@ -24,12 +24,12 @@ export class DataGridComponent implements OnInit, OnDestroy {
 
   //we should always implement provided Types from third party libraries, in this case ColDef,ColGroupDef,GridReadyEvent...etc from Ag-grid
   public defaultColDef: ColDef = {
-    width: 150,
     editable: false,
     filter: 'agTextColumnFilter',
     floatingFilter: true,
     resizable: true,
-    sortable: true
+    sortable: true,
+    maxWidth: 300
   };
 
   public defaultColGroupDef: Partial<ColGroupDef> = {
@@ -84,7 +84,7 @@ export class DataGridComponent implements OnInit, OnDestroy {
     //good place to perform any autosizing of columns and other view manipulation
     this.gridApi = params.api;
     this.columnApi = params.columnApi;
-    this.gridApi.sizeColumnsToFit();
+    params.columnApi.autoSizeAllColumns();
   }
 }
 
