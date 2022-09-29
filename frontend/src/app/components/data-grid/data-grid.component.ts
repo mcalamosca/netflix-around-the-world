@@ -95,7 +95,8 @@ export interface IGridConfig {
 
 export interface IFilterParam {
   field: string,
-  value?: string
+  value?: string,
+  type?: string
 }
 
 export interface IFilterParamMap {

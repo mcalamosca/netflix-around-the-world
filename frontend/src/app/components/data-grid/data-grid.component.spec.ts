@@ -1,7 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { DataGridComponent } from './data-grid.component';
-import 'jasmine'
-
+ 
 describe('DataGridComponent', () => {
   let component: DataGridComponent;
   let fixture: ComponentFixture<DataGridComponent>;

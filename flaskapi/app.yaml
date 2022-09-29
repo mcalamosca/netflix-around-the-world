@@ -2,7 +2,7 @@ service: default
 runtime: python37
 
 handlers:
-- url: /static
+- url: /static/.*
   static_dir: static
 
 - url: /.*

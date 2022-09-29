@@ -16,7 +16,9 @@ export class MapChartComponent implements OnInit, OnDestroy {
   @Input() parent!: MediaDashboardComponent;
   @Input() chartData!: any;
   @Input() dataChanged!: Observable<any>;
+
   dataChangedSub: Subscription = new Subscription();
+  filterChangedSub: Subscription = new Subscription();
   updateFlag: boolean = false;
   chartOptions!: Highcharts.Options;
   doneLoading: boolean = false;
@@ -41,6 +43,15 @@ export class MapChartComponent implements OnInit, OnDestroy {
         this.parent
       );
       this.updateFlag = next;
+    });
+    this.parent.filterSelected$.subscribe((next) => {
+      if (next.type !== "map" && !this.parent.currentFilters['country']) {
+        this.chartOptions = this.highchartsDataService.parseMapData(
+          this.chartData.data,
+          this.parent
+        );
+        this.updateFlag = true;
+      }
     });
   }
 }

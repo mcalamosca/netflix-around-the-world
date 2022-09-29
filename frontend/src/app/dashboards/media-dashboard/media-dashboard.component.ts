@@ -122,19 +122,21 @@ export class MediaDashboardComponent implements OnDestroy {
     }
   }
 
-  applyFilter(e:Highcharts.PointInteractionEventObject,field:string){
+  applyFilter(e:Highcharts.PointInteractionEventObject,field:string,type:string){
     let name = (e.target as any).name;
     this.currentFilters[field] = name;
     this.filterSelected.next({
       field: field,
-      value: name
+      value: name,
+      type: type
     })
   }
-  removeFilter(field:string){
+  removeFilter(field:string,type:string){
     delete this.currentFilters[field];
     this.filterSelected.next({
       field: field,
-      value: "remove"
+      value: "remove",
+      type: type
     });
   }
 

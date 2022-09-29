@@ -1,10 +1,10 @@
 <mat-toolbar color="primary">
   <mat-toolbar-row>
-    <fa-icon [icon]="bars" (click)="drawer.toggle()"></fa-icon>
+    <fa-icon id="barIcon" [icon]="bars" (click)="drawer.toggle()"></fa-icon>
     <span class="spacer"></span>
-    <span>Netflix Around the <fa-icon [icon]="earth"></fa-icon></span>
+    <span>Netflix Around the <fa-icon id="earthIcon" [icon]="earth"></fa-icon></span>
     <span class="spacer"></span>
-    <span><fa-icon [icon]="github" (click)="gotoGithub()"></fa-icon></span>
+    <span><fa-icon id="githubIcon" [icon]="github" (click)="gotoGithub()"></fa-icon></span>
   </mat-toolbar-row>
 </mat-toolbar>
 

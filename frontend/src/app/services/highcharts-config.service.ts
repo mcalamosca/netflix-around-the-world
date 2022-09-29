@@ -15,6 +15,12 @@ export class HighchartsConfigService {
     let countryCountMap: any = {};
     let data = apiData;
     for (let i = 0; i < data.length; i++) {
+      if (
+        parent.currentFilters['rating'] &&
+        data[i].rating !== parent.currentFilters['rating']
+      ) {
+        continue;
+      }
       let countries = data[i]['country'].split(',');
       for (let j = 0; j < countries.length; j++) {
         let country = countries[j].trim();
@@ -80,17 +86,17 @@ export class HighchartsConfigService {
           point: {
             events: {
               select: (e) => {
-                parent.applyFilter(e,"country");
+                parent.applyFilter(e, 'country',"map");
               },
               unselect: (e) => {
-                parent.removeFilter("country");
+                parent.removeFilter('country',"map");
               },
             },
           },
         },
       ],
       credits: {
-        enabled: false
+        enabled: false,
       },
     };
   }
@@ -102,68 +108,77 @@ export class HighchartsConfigService {
     let ratingMap: any = {};
     let final: any = [];
 
-    for(let i=0;i<apiData.length;i++){
-      if(ratingMap[apiData[i]['rating']]){
+    for (let i = 0; i < apiData.length; i++) {
+      if (
+        parent.currentFilters['country'] &&
+        !apiData[i]['country'].includes(parent.currentFilters['country'])
+      ) {
+        continue;
+      }
+      if (ratingMap[apiData[i]['rating']]) {
         ratingMap[apiData[i]['rating']]++;
       } else {
         ratingMap[apiData[i]['rating']] = 1;
       }
     }
 
-    Object.keys(ratingMap).forEach(rating =>{
+    Object.keys(ratingMap).forEach((rating) => {
       final.push({
         name: rating,
-        y: ratingMap[rating]
-      })
-    })
+        y: ratingMap[rating],
+      });
+    });
 
     return {
       chart: {
         plotBackgroundColor: undefined,
         plotBorderWidth: undefined,
         plotShadow: false,
-        type: 'pie'
-    },
-    title: {
-        text: ''
-    },
-    tooltip: {
-        pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
-    },
-    accessibility: {
-        enabled: false
-    },
-    plotOptions: {
-        pie: {
-            allowPointSelect: true,
-            cursor: 'pointer',
-            dataLabels: {
-                enabled: true
-            },
-            showInLegend: false
-        }
-    },
-    series: [{
-        name: 'Ratings',
         type: 'pie',
-        colorByPoint: true,
-        data: final,
-        point: {
-          events: {
-            select: (e) => {
-              parent.applyFilter(e,"rating");
-            },
-            unselect: (e) => {
-              parent.removeFilter("rating");
+      },
+      title: {
+        text: '',
+      },
+      tooltip: {
+        pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>',
+      },
+      accessibility: {
+        enabled: false,
+      },
+      plotOptions: {
+        pie: {
+          allowPointSelect: true,
+          animation: true,
+          cursor: 'pointer',
+          dataLabels: {
+            enabled: true,
+          },
+          showInLegend: false,
+        },
+      },
+      series: [
+        {
+          name: 'Ratings',
+          type: 'pie',
+          colorByPoint: true,
+          data: final,
+          point: {
+            events: {
+              select: (e) => {
+                parent.applyFilter(e, 'rating',"pie");
+              },
+              unselect: (e) => {
+                parent.removeFilter('rating',"pie");
+              },
             },
           },
         },
-    }],
-    credits: {
-      enabled: false
-    }
+      ],
+      credits: {
+        enabled: false,
+      },
+    };
   }
-}
   constructor() {}
 }
 var countryCodeMap: any = {

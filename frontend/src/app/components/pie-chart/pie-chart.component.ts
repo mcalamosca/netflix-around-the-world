@@ -7,31 +7,46 @@ import { HighchartsConfigService } from 'src/app/services/highcharts-config.serv
 @Component({
   selector: 'app-pie-chart',
   templateUrl: './pie-chart.component.html',
-  styleUrls: ['./pie-chart.component.scss']
+  styleUrls: ['./pie-chart.component.scss'],
 })
 export class PieChartComponent implements OnInit {
   Highcharts: typeof Highcharts = Highcharts;
-  chartConstructor = "mapChart";
+  chartConstructor = 'mapChart';
 
-  @Input()parent!:MediaDashboardComponent;
-  @Input()chartData!: any;
-  @Input()dataChanged!: Observable<any>
+  @Input() parent!: MediaDashboardComponent;
+  @Input() chartData!: any;
+  @Input() dataChanged!: Observable<any>;
+
   updateFlag: boolean = false;
   chartOptions!: Highcharts.Options;
   doneLoading: boolean = false;
 
-  constructor(private highchartsDataService:HighchartsConfigService) {
-    
-  }
+  constructor(private highchartsDataService: HighchartsConfigService) {}
 
   ngOnInit(): void {
     //initialize the chart with data from this directive
-    this.chartOptions = this.highchartsDataService.parsePieData(this.chartData.data,this.parent)
+    this.chartOptions = this.highchartsDataService.parsePieData(
+      this.chartData.data,
+      this.parent
+    );
     this.doneLoading = true;
     //observable provided for when data is changed via the sidebar menu - rebuild the chart using the update flag
-    this.dataChanged.subscribe(next => {
-      this.chartOptions = this.highchartsDataService.parsePieData(next, this.parent)
+    this.dataChanged?.subscribe((next) => {
+      this.chartOptions = this.highchartsDataService.parsePieData(
+        next,
+        this.parent
+      );
       this.updateFlag = next;
-    })
+    });
+    //observable for when a filter is changed - rebuild chart using update flag
+    this.parent.filterSelected$.subscribe((next) => {
+      if (next.type !== "pie" && !this.parent.currentFilters['rating']) {
+        this.chartOptions = this.highchartsDataService.parsePieData(
+          this.chartData.data,
+          this.parent
+        );
+        this.updateFlag = true;
+      }
+    });
   }
 }

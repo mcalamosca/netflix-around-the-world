@@ -8,8 +8,10 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 
 import { MediaDashboardComponent } from './media-dashboard.component';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { HttpClient } from '@angular/common/http';
 
-describe('TvShowsDashboardComponent', () => {
+describe('MediaDashboardComponent', () => {
   let component: MediaDashboardComponent;
   let fixture: ComponentFixture<MediaDashboardComponent>;
 
@@ -24,6 +26,8 @@ describe('TvShowsDashboardComponent', () => {
         MatGridListModule,
         MatIconModule,
         MatMenuModule,
+        MatToolbarModule,
+        HttpClient
       ]
     }).compileComponents();
   }));

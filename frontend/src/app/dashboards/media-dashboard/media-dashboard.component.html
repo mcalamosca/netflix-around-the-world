@@ -1,20 +1,38 @@
 <div class="grid-container">
   <mat-grid-list cols="4" rowHeight="300px">
-    <mat-grid-tile *ngFor="let card of cards | async" [colspan]="card.cols" [rowspan]="card.rows">
+    <mat-grid-tile
+      *ngFor="let card of cards | async"
+      [colspan]="card.cols"
+      [rowspan]="card.rows"
+    >
       <mat-card class="dashboard-card">
         <mat-card-header>
           <mat-card-title>
-            {{type + card.title}}
+            {{ type + card.title }}
           </mat-card-title>
         </mat-card-header>
         <mat-card-content class="dashboard-card-content">
-          <app-map-chart *ngIf="card.type === 'map-chart' && doneLoading" [parent]="self" [chartData]="card.chart" [dataChanged]="dataUpdated$"></app-map-chart>
-          <app-pie-chart *ngIf="card.type === 'pie-chart' && doneLoading" [parent]="self" [chartData]="card.chart" [dataChanged]="dataUpdated$"></app-pie-chart>
+          <app-map-chart
+            *ngIf="card.type === 'map-chart' && doneLoading"
+            [parent]="self"
+            [chartData]="card.chart"
+            [dataChanged]="dataUpdated$"
+          ></app-map-chart>
+          <app-pie-chart
+            *ngIf="card.type === 'pie-chart' && doneLoading"
+            [parent]="self"
+            [chartData]="card.chart"
+            [dataChanged]="dataUpdated$"
+          ></app-pie-chart>
         </mat-card-content>
       </mat-card>
       <mat-card class="dashboard-card" *ngIf="card.type === 'grid'">
         <mat-card-content class="dashboard-card-content">
-          <app-data-grid [filterChanged]="filterSelected$" [gridConfig]="gridConfig" *ngIf="doneLoading"></app-data-grid>
+          <app-data-grid
+            [filterChanged]="filterSelected$"
+            [gridConfig]="gridConfig"
+            *ngIf="doneLoading"
+          ></app-data-grid>
         </mat-card-content>
       </mat-card>
     </mat-grid-tile>
